@@ -1,0 +1,16 @@
+{
+  "name": "state-auto-eval",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:dunnaaron/state-auto-eval.git",
+  "author": "Aaron Dunn <dunnac1@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha",
+    "test:watch": "mocha -w"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1"
+  }
+}
