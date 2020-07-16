@@ -13,7 +13,6 @@ describe('airline seats', () => {
 describe('createPassengers', () => {
     it('builds passenger array with 100 passenger objects', () => {
         const passengers = createPassengers()
-        console.log('PASSENGERS: ', passengers)
 
         expect(passengers.length).to.equal(100)
         expect(passengers[0]).to.deep.equal({

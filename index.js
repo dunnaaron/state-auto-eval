@@ -12,17 +12,6 @@ const createPassengers = () => {
 
 const airlineSeats = () => {
     const passengers = createPassengers()
-    const seats = new Array(100).fill(false)
-
-    passenger.forEach((passenger, index) => {
-        if (passenger.id === 0) {
-            const randomSeat = Math.floor(Math.random() * Math.floor(100))
-
-            passenger.occupiedSeat = randomSeat
-            seats
-        }
-    })
-
     
     return
 }
