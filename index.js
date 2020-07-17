@@ -40,15 +40,26 @@ const seatPassengers = (passengers, availableSeats) => (
 
 const checkLastPassenger = passenger => passenger.occupiedSeat === passenger.assignedSeat
 
+const message = passenger => {
+    return checkLastPassenger(passenger) 
+    ? 
+    `The last passenger was able to sit in their assigned seat, seat ${passenger.assignedSeat}.`
+    :
+    `The last passenger was not able to sit in their assigned seat, seat ${passenger.assignedSeat}, but instead had to sit in seat ${passenger.occupiedSeat}.`
+}
+
 const airlineSeats = () => {
     const passengers = createPassengers(100)
     const availableSeats = [...Array(100).keys()]
 
     const seatedPassengers = seatPassengers(passengers, availableSeats)
+    const lastPassenger = seatedPassengers[seatedPassengers.length - 1]
 
-    return checkLastPassenger(seatedPassengers[seatedPassengers.length - 1])
+    console.log(message(lastPassenger))
+
+    return checkLastPassenger(lastPassenger)
 }
 
-console.log('The last passenger sat in their assigned seat: ' + airlineSeats())
+airlineSeats()
 
 module.exports = { airlineSeats, createPassengers, occupySeat, occupyRandomSeat, seatPassengers, checkLastPassenger }
