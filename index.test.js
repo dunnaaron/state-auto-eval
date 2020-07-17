@@ -1,18 +1,19 @@
 const { expect, assert } = require('chai')
 const sinon = require('sinon')
 const { 
-    airlineSeats, 
-    createPassengers, 
-    occupySeat, 
-    occupyRandomSeat, 
-    seatPassengers 
+    airlineSeats,
+    createPassengers,
+    occupySeat,
+    occupyRandomSeat,
+    seatPassengers,
+    checkLastPassenger
 } = require('./index')
 
 describe('createPassengers', () => {
     it('builds passenger array with 100 passenger objects', () => {
-        const passengers = createPassengers()
+        const passengers = createPassengers(15)
 
-        expect(passengers.length).to.equal(100)
+        expect(passengers.length).to.equal(15)
         expect(passengers[0]).to.deep.equal({
             id: 0,
             assignedSeat: 0,
@@ -33,14 +34,14 @@ describe('occupy seats', () => {
 
     describe('occupyRandomSeat', () => {
         it('removes random occupied seat and assigns it to passenger', () => {
-            sinon.stub(Math, 'random').returns(.03)
+            sinon.stub(Math, 'random').returns(.45)
             
             const availableSeats = [...Array(5).keys()]
             const passenger = {occupiedSeat: null}
             occupyRandomSeat(availableSeats, passenger)
 
             expect(availableSeats.length).to.equal(4)
-            expect(passenger.occupiedSeat).to.equal(3)
+            expect(passenger.occupiedSeat).to.equal(2)
         })
     })
 })
@@ -60,5 +61,16 @@ describe('seatPassengers', () => {
 
         expect(result.length).to.equal(5)
         assert.isAbove(result[0].occupiedSeat, 0)
+    })
+})
+
+describe('checkLastPassenger', () => {
+    it('returns true if the last passenger is in their assigned seat', () => {
+        const passenger = {
+            occupiedSeat: 1,
+            assignedSeat: 1
+        }
+        
+        expect(checkLastPassenger(passenger)).to.be.true
     })
 })

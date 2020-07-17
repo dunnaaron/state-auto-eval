@@ -1,5 +1,5 @@
-const createPassengers = () => {
-    const passengers = new Array(100).fill({})
+const createPassengers = count => {
+    const passengers = new Array(count).fill({})
 
     return passengers.map((passenger, index) => {
         return {
@@ -17,14 +17,14 @@ const occupySeat = (availableSeats, seat) => {
 }
 
 const occupyRandomSeat = (availableSeats, passenger) => {
-    const randomSeat = availableSeats[Math.floor(Math.random() * 100)]
+    const randomSeat = availableSeats[Math.floor(Math.random() * availableSeats.length)]
 
     passenger.occupiedSeat = randomSeat
     occupySeat(availableSeats, randomSeat)
 }
 
 const seatPassengers = (passengers, availableSeats) => {
-    return passengers.map((passenger, index) => {
+    return passengers.map(passenger => {
         let assignedSeat = passenger.assignedSeat
 
         if (!passenger.id || !availableSeats.includes(assignedSeat)) {
@@ -38,13 +38,17 @@ const seatPassengers = (passengers, availableSeats) => {
     })
 }
 
+const checkLastPassenger = passenger => passenger.occupiedSeat === passenger.assignedSeat
+
 const airlineSeats = () => {
-    const passengers = createPassengers()
+    const passengers = createPassengers(100)
     const availableSeats = [...Array(100).keys()]
 
     const seatedPassengers = seatPassengers(passengers, availableSeats)
 
-    return
+    return checkLastPassenger(seatedPassengers[seatedPassengers.length - 1])
 }
 
-module.exports = { airlineSeats, createPassengers, occupySeat, occupyRandomSeat, seatPassengers }
+console.log('The last passenger sat in their assigned seat: ' + airlineSeats())
+
+module.exports = { airlineSeats, createPassengers, occupySeat, occupyRandomSeat, seatPassengers, checkLastPassenger }
