@@ -7,7 +7,7 @@ I confirmed with Syed that because we aren't thinking about this as a statistics
 The solution to this problem ended up closer to a simulation. I knew that I would need a way to track the available seats as "passengers" occupied them. After that it was simply a matter of placing the passengers in their assigned seats when I could, and selecting from whatever available seats were left.
 
 ## How to Run
-You will need Node installed on your system and an IDE of your choosing that can execute Node/JavaScript.
+You will need Node installed on your system (I used v12.4.0) and an IDE of your choosing that can execute Node/JavaScript.
 
 Clone the respository to your local system.
 
