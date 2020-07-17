@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { airlineSeats, createPassengers } = require('./index')
+const { airlineSeats, createPassengers, occupySeat } = require('./index')
 
 describe('airline seats', () => {
     it('returns true if last passenger is in assigned seat', () => {
@@ -20,5 +20,14 @@ describe('createPassengers', () => {
             assignedSeat: 0,
             occupiedSeat: null
         })
+    })
+})
+
+describe('occupySeats', () => {
+    it('removes occupied seats from the available seats array', () => {
+        const availableSeats = [...Array(5).keys()]
+        occupySeat(availableSeats, 3)
+
+        expect(availableSeats.length).to.equal(4)
     })
 })
