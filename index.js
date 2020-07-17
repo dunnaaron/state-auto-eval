@@ -23,18 +23,28 @@ const occupyRandomSeat = (availableSeats, passenger) => {
     occupySeat(availableSeats, randomSeat)
 }
 
+const seatPassengers = (passengers, availableSeats) => {
+    return passengers.map((passenger, index) => {
+        let assignedSeat = passenger.assignedSeat
+
+        if (!passenger.id || !availableSeats.includes(assignedSeat)) {
+            occupyRandomSeat(availableSeats, passenger)
+        } else {
+            passenger.occupiedSeat = assignedSeat
+            occupySeat(availableSeats, assignedSeat)
+        }
+
+        return passenger
+    })
+}
+
 const airlineSeats = () => {
     const passengers = createPassengers()
     const availableSeats = [...Array(100).keys()]
 
-    const seatedPassengers = passengers.map((passenger, index) => {
-        let assignedSeat = passenger.assignedSeat
-        
-        passenger.id === 0 && occupyRandomSeat(availableSeats, passenger)
-    })
+    const seatedPassengers = seatPassengers(passengers, availableSeats)
 
-    
     return
 }
 
-module.exports = { airlineSeats, createPassengers, occupySeat, occupyRandomSeat }
+module.exports = { airlineSeats, createPassengers, occupySeat, occupyRandomSeat, seatPassengers }

@@ -1,15 +1,12 @@
-const { expect } = require('chai')
+const { expect, assert } = require('chai')
 const sinon = require('sinon')
-const { airlineSeats, createPassengers, occupySeat, occupyRandomSeat } = require('./index')
-
-describe('airline seats', () => {
-    it('returns true if last passenger is in assigned seat', () => {
-        const lastPassenger = airlineSeats()
-        const result = lastPassenger.assignedSeat === lastPassenger.occupiedSeat
-
-        expect(result).to.equal(true)
-    })
-})
+const { 
+    airlineSeats, 
+    createPassengers, 
+    occupySeat, 
+    occupyRandomSeat, 
+    seatPassengers 
+} = require('./index')
 
 describe('createPassengers', () => {
     it('builds passenger array with 100 passenger objects', () => {
@@ -45,5 +42,23 @@ describe('occupy seats', () => {
             expect(availableSeats.length).to.equal(4)
             expect(passenger.occupiedSeat).to.equal(3)
         })
+    })
+})
+
+describe('seatPassengers', () => {
+    it('returns array of passengers with occupied seats', () => {
+        const passengers = [
+            {id: 1, occupiedSeat: 0, assignedSeat: 1},
+            {id: 2, occupiedSeat: 0, assignedSeat: 2},
+            {id: 3, occupiedSeat: 0, assignedSeat: 3},
+            {id: 4, occupiedSeat: 0, assignedSeat: 4},
+            {id: 5, occupiedSeat: 0, assignedSeat: 5}
+        ]
+        const availableSeats = [...Array(5).keys()].map(seat => seat + 1)
+        
+        const result = seatPassengers(passengers, availableSeats)
+
+        expect(result.length).to.equal(5)
+        assert.isAbove(result[0].occupiedSeat, 0)
     })
 })
