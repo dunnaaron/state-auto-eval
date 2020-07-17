@@ -1,13 +1,13 @@
 const createPassengers = count => {
     const passengers = new Array(count).fill({})
 
-    return passengers.map((passenger, index) => {
-        return {
+    return passengers.map((passenger, index) => (
+        {
             id: index,
             assignedSeat: index,
             occupiedSeat: null
         }
-    })
+    ))
 }
 
 const occupySeat = (availableSeats, seat) => {
@@ -23,8 +23,8 @@ const occupyRandomSeat = (availableSeats, passenger) => {
     occupySeat(availableSeats, randomSeat)
 }
 
-const seatPassengers = (passengers, availableSeats) => {
-    return passengers.map(passenger => {
+const seatPassengers = (passengers, availableSeats) => (
+    passengers.map(passenger => {
         let assignedSeat = passenger.assignedSeat
 
         if (!passenger.id || !availableSeats.includes(assignedSeat)) {
@@ -36,7 +36,7 @@ const seatPassengers = (passengers, availableSeats) => {
 
         return passenger
     })
-}
+)
 
 const checkLastPassenger = passenger => passenger.occupiedSeat === passenger.assignedSeat
 
