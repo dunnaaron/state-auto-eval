@@ -1,5 +1,6 @@
 const { expect } = require('chai')
-const { airlineSeats, createPassengers, occupySeat } = require('./index')
+const sinon = require('sinon')
+const { airlineSeats, createPassengers, occupySeat, occupyRandomSeat } = require('./index')
 
 describe('airline seats', () => {
     it('returns true if last passenger is in assigned seat', () => {
@@ -23,11 +24,26 @@ describe('createPassengers', () => {
     })
 })
 
-describe('occupySeats', () => {
-    it('removes occupied seats from the available seats array', () => {
-        const availableSeats = [...Array(5).keys()]
-        occupySeat(availableSeats, 3)
+describe('occupy seats', () => {
+    describe('occupyAssignedSeat', () => {
+        it('removes occupied seats from the available seats array', () => {
+            const availableSeats = [...Array(5).keys()]
+            occupySeat(availableSeats, 3)
+    
+            expect(availableSeats.length).to.equal(4)
+        })
+    })
 
-        expect(availableSeats.length).to.equal(4)
+    describe('occupyRandomSeat', () => {
+        it('removes random occupied seat and assigns it to passenger', () => {
+            sinon.stub(Math, 'random').returns(.03)
+            
+            const availableSeats = [...Array(5).keys()]
+            const passenger = {occupiedSeat: null}
+            occupyRandomSeat(availableSeats, passenger)
+
+            expect(availableSeats.length).to.equal(4)
+            expect(passenger.occupiedSeat).to.equal(3)
+        })
     })
 })

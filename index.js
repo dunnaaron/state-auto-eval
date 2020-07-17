@@ -16,6 +16,13 @@ const occupySeat = (availableSeats, seat) => {
     availableSeats.splice(index, 1)
 }
 
+const occupyRandomSeat = (availableSeats, passenger) => {
+    const randomSeat = availableSeats[Math.floor(Math.random() * 100)]
+
+    passenger.occupiedSeat = randomSeat
+    occupySeat(availableSeats, randomSeat)
+}
+
 const airlineSeats = () => {
     const passengers = createPassengers()
     const availableSeats = [...Array(100).keys()]
@@ -23,16 +30,11 @@ const airlineSeats = () => {
     const seatedPassengers = passengers.map((passenger, index) => {
         let assignedSeat = passenger.assignedSeat
         
-        if (passenger.id === 0) {
-            const randomSeat = availableSeats[Math.floor(Math.random() * 100)]
-
-            passenger.occupiedSeat = randomSeat
-            occupySeat(availableSeats, randomSeat)
-        }
+        passenger.id === 0 && occupyRandomSeat(availableSeats, passenger)
     })
 
     
     return
 }
 
-module.exports = { airlineSeats, createPassengers, occupySeat }
+module.exports = { airlineSeats, createPassengers, occupySeat, occupyRandomSeat }
